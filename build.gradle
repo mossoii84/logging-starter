@@ -1,20 +1,45 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'ru.mossoii84'
-version = '1.0-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 
 repositories {
-    mavenCentral()
+  mavenLocal()
+  mavenCentral()
 }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+                group = 'ru.mossoii84'
+                version = '0.0.2-SNAPSHOT'
+                artifactId = "logging-starter"
+
+                from components.java
+        }
+    }
+
+         repositories {
+            maven {
+                url = uri("${project.projectDir}/maven-repo")
+            }
+        }
+
 }
 
-test {
-    useJUnitPlatform()
-}
+// для прода так не делать !!!!
+//так будет такой вариант
+//maven {
+//    url = uri("https://maven.pkg.github.com/ВАШ_НИКНЕЙМ/logging-starter")
+//    credentials {
+//        username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+//        password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+
+//- project.findProperty("gpr.user") -Gradle ищет свойство внутри своей экосистемы в следующем порядке:
+// - gradle.properties если создадим его вручную, или можно настроить через .env dotenv['GPR_USER']
+//- System.getenv("GITHUB_ACTOR")- переменные окружения самой операционной системы.
+//    }
+

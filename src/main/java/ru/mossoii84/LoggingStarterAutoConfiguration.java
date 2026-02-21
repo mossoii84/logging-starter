@@ -1,10 +1,12 @@
 package ru.mossoii84;
 
 
-public class Main {
-    
+public class LoggingStarterAutoConfiguration {
+
     public static void main(String[] args) {
-        System.out.printf("Hello and welcome!");
+
+        new LoggingStarterAutoConfiguration();
+        System.out.println("Hello and welcome!");
 
     }
 }
