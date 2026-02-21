@@ -3,11 +3,12 @@
   <groupId>ru.mossoii84</groupId>
   <artifactId>logging-starter</artifactId>
   <versioning>
-    <latest>0.0.2-SNAPSHOT</latest>
+    <latest>0.0.3-SNAPSHOT</latest>
     <versions>
       <version>0.0.1-SNAPSHOT</version>
       <version>0.0.2-SNAPSHOT</version>
+      <version>0.0.3-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20260221125347</lastUpdated>
+    <lastUpdated>20260221132352</lastUpdated>
   </versioning>
 </metadata>
