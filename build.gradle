@@ -35,20 +35,3 @@ publishing {
 
 }
 
-// первый раз когда пишем код, делаем publish в gradle, появляется наша папка /maven-repo в проекте
-// далее при изменении желательно менять "0.0.4-SNAPSHOT" и потом уже делаем publishToMavenLocal
-// в другом проекте нужно не забыть изменить implement на 0.0.4-SNAPSHOT
-
-
-// для прода так не делать !!!!
-//так будет такой вариант
-//maven {
-//    url = uri("https://maven.pkg.github.com/ВАШ_НИКНЕЙМ/logging-starter")
-//    credentials {
-//        username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-//        password = project.findProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
-
-//- project.findProperty("gpr.user") -Gradle ищет свойство внутри своей экосистемы:
-// - gradle.properties если создадим его вручную, или можно настроить через .env dotenv['GPR_USER']
-//- System.getenv("GITHUB_ACTOR")- переменные окружения самой операционной системы.
-

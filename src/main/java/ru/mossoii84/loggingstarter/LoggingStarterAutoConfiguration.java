@@ -1,4 +1,4 @@
-package ru.mossoii84;
+package ru.mossoii84.loggingstarter;
 
 
 public class LoggingStarterAutoConfiguration {
