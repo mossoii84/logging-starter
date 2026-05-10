@@ -9,29 +9,34 @@ java {
 
     withSourcesJar()
 }
-//group = 'ru.mossoii84'
-//version = '0.0.3-SNAPSHOT'
+group = 'ru.mossoii84'
+version = '0.0.3-SNAPSHOT'
 repositories {
   mavenLocal()
   mavenCentral()
 }
 
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+}
+
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-                group =  "ru.mossoii84"
-                version = "0.0.4-SNAPSHOT"
-                artifactId = "logging-starter"
+        create('mavenJava', MavenPublication) {
+            groupId = 'ru.mossoii84'
+            artifactId = 'logging-starter'
+            version = '1.0.4-SNAPSHOT'
 
-                from components.java
+            from components.java
         }
     }
 
-         repositories {
-            maven {
-                url = uri("${project.projectDir}/maven-repo")
-            }
+     repositories {
+        maven {
+            url = uri("${project.projectDir}/maven-repo")
         }
+    }
 
 }
 
