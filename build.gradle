@@ -9,8 +9,8 @@ java {
 
     withSourcesJar()
 }
-group = 'ru.mossoii84'
-version = '0.0.3-SNAPSHOT'
+//group = 'ru.mossoii84'
+//version = '0.0.3-SNAPSHOT'
 repositories {
   mavenLocal()
   mavenCentral()
