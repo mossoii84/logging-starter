@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
@@ -34,13 +35,17 @@ public class WebLoggingRequestBodyAdvice extends RequestBodyAdviceAdapter {
     private HttpServletRequest request;
 
     @Override
-    public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        log.info("Тело запроса: {} body={}", request.getMethod(), body);
+    public Object afterBodyRead(@NonNull Object body, @NonNull HttpInputMessage inputMessage, @NonNull MethodParameter parameter,
+                                @NonNull Type targetType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
+        log.info("Http запрос: метод={} адрес={} body={}",
+                request.getMethod(),
+                request.getRequestURL(),
+                body);
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
 
     @Override
-    public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(@NonNull MethodParameter methodParameter, @NonNull Type targetType, @NonNull Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
 }

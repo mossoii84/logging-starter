@@ -25,6 +25,10 @@ public class WebLoggingFilter extends HttpFilter {
 
     private static final Logger log = LoggerFactory.getLogger(WebLoggingFilter.class);
 
+    private static String formatQueryString(HttpServletRequest request) {
+        return Optional.ofNullable(request.getQueryString()).map(qs -> "?" + qs).orElse(Strings.EMPTY);
+    }
+
     /*
       Filter — это обычный «перехватчик» (Interceptor) от tomcat.
     */
@@ -53,13 +57,9 @@ public class WebLoggingFilter extends HttpFilter {
         }
     }
 
-    private static String formatQueryString(HttpServletRequest request) {
-        return Optional.ofNullable(request.getQueryString()).map(qs -> "?" + qs).orElse(Strings.EMPTY);
-    }
-
     private String inlineHeadersRequest(HttpServletRequest request) {
-        Map<String, String> headersMap = Collections.list(request.getHeaderNames())
-                .stream().collect(Collectors.toMap(it -> it, request::getHeader));
+        Map<String, String> headersMap = Collections.list(request.getHeaderNames()).stream()
+                .collect(Collectors.toMap(it -> it, request::getHeader));
 
         String inlineHeaders = headersMap.entrySet().stream().map(entry -> {
             String headerName = entry.getKey();
@@ -72,16 +72,14 @@ public class WebLoggingFilter extends HttpFilter {
 
     private String inlineHeadersResponse(HttpServletResponse response) {
         // 1. Берем все заголовки, которые ЕСТЬ в коллекции names
-        Map<String, String> headersMap = response.getHeaderNames().stream()
-                .collect(Collectors.toMap(name -> name, response::getHeader));
+        Map<String, String> headersMap = response.getHeaderNames().stream().collect(Collectors.toMap(name -> name, response::getHeader));
 
         headersMap.putIfAbsent("Content-Type", response.getContentType());
         headersMap.putIfAbsent("Character-Encoding", response.getCharacterEncoding());
         headersMap.putIfAbsent("Locale", response.getLocale().toString());
 
-        String inlineHeaders = headersMap.entrySet().stream()
-                .map(entry -> entry.getKey() + "=" + entry.getValue())
-                .collect(Collectors.joining(","));
+        String inlineHeaders = headersMap.entrySet().stream().map(entry ->
+                entry.getKey() + "=" + entry.getValue()).collect(Collectors.joining(","));
 
         return "headers = {" + inlineHeaders + "}";
     }

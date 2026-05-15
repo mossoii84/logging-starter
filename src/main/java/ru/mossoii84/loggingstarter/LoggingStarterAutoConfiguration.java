@@ -14,7 +14,7 @@ import ru.mossoii84.loggingstarter.webfilter.WebLoggingRequestBodyAdvice;
  * Spring пойдет в application.properties (или application.yml) и будет искать две настройки:
  * logging.enable и logging.log-body
  * Бин активируется только если обе эти настройки имеют значение true.*
- * app.yaml должны быть  строки
+ * app.yaml должны быть строки
  * logging:
  *   enable: true
  *   log-body: true
@@ -44,8 +44,6 @@ public class LoggingStarterAutoConfiguration {
     }
 
 
-//    уже не нужно если через OAP, а не через proxy в другом проектеы
-//    public static void println(String str) {
-//        System.out.println("welcome - LoggingStarter!");
-//    }
+//    уже не нужно если через OAP, а не через proxy в другом проекте
+//    public static void println(String str) {System.out.println("welcome - LoggingStarter!");}
 }
