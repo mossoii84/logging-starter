@@ -24,21 +24,16 @@ public class LogExecutionAspect {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
         LogExecutionTime originalAnnotation = method.getAnnotation(LogExecutionTime.class);
-        String methodName = Optional.ofNullable(originalAnnotation)
-                .map(LogExecutionTime::methodName)
-                .filter(StringUtils::hasText)
-                .orElse(method.getName());
+        String methodName = Optional.ofNullable(originalAnnotation).map(LogExecutionTime::methodName).filter(StringUtils::hasText).orElse(method.getName());
 
 
-            try {
-                return joinPoint.proceed();
-            } catch (Exception e) {
-                throw e.getCause();
-            } finally {
-                log.info("Время выполнения метода {}: {} мс", methodName, System.currentTimeMillis() - start);
-            }
+        try {
+            return joinPoint.proceed();
+        } catch (Exception e) {
+            throw e.getCause();
+        } finally {
+            log.info("Время выполнения метода {}: {} мс", methodName, System.currentTimeMillis() - start);
+        }
     }
-
-
 
 }
